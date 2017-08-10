@@ -1,0 +1,7 @@
+dataglobal <- reactiveValues()
+dataalbumin<-reactiveValues()
+downloadstandard<-read.csv("standard2017-08-062017-08-06 17-45-50.csv")
+downloadtemplate<-read.csv("template file.csv")
+downloadtemplate2<-read.csv("chromatography2017-08-062017-08-06 19-36-06.csv")
+downloadtemplate3<-read.csv("chromatography2017-08-062017-08-06 19-36-06.csv")
+downloadtemplate4<-read.csv("larger database.csv")
