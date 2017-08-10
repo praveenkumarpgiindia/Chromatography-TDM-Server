@@ -1,0 +1,15 @@
+X,Time.date,Final,Standards,Name,ID,Drug,Conc
+1,8/6/2017 19:22,TRUE,3,Lutfi Dinesh ,72479,phenytoin,19.8
+2,8/6/2017 19:22,TRUE,3,Kiim Neptunus,32932,carbamazepine,17.5
+3,8/6/2017 19:22,TRUE,3,Radha Staffan ,24926,phenobarbitone,35
+4,8/10/2017 19:27,TRUE,5,Lech Narek ,29021,phenobarbitone,45.5
+5,8/10/2017 19:27,TRUE,5,Petko Dushyanta,45164,phenytoin,15.5
+6,8/10/2017 19:27,TRUE,5,Erminigild Wigmar,88016,phenobarbitone,25.5
+7,8/15/2017 19:30,TRUE,7,Barak Bao ,35747,carbamazepine,18.8
+8,8/15/2017 19:30,TRUE,7,Lindy Kasey ,76831,phenytoin,35.8
+9,8/15/2017 19:30,TRUE,7,Snorri Galip ,62545,carbamazepine,14.4
+10,8/20/2017 19:30,TRUE,7,Azat Gatson,44766,phenobarbitone,33.3
+11,8/20/2017 19:30,TRUE,7,Corwin Kfir,33885,phenytoin,25.5
+12,8/20/2017 19:30,TRUE,7,Anton Frank,84036,carbamazepine,22.9
+13,8/20/2017 19:30,TRUE,9,Timo Tobiasz,54696,phenytoin,44.4
+14,8/20/2017 19:30,TRUE,9,Abimael Joachim,75509,carbamazepine,17.9
