@@ -1,4 +1,4 @@
-# Chromatography-TDM-Server
+# Shyam's Chromatography-TDM-Server
 
 The program written on R shiny language is intended for Therapeutic drug monitoring centers worldwide. 
 
@@ -15,5 +15,5 @@ We intended to develop this program for the following purposes:
 
 Developers are welcome from across the world to join us in further developing this software. 
 
-Dedicated to our everbright and impressive student: Dr Shyambalaji Achuthan M.D.,
+Dedicated to our everbright and impressive student: Late Dr Shyambalaji Achuthan M.D.,
 
