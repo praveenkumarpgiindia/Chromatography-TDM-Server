@@ -1,7 +1,10 @@
 # Shyam's Chromatography-TDM-Server
 
 The program written on R shiny language is intended for the utility of Therapeutic drug monitoring centers.
-The web url link for accessing the program for overview about the features of the program is provided here. 
+
+The web url link for accessing the program for getting a overview is provided here. But do note that the ultimate intention is to download the program and run it in your own hospital server.
+
+http://utilityshiny.shinyapps.io/chromatographic_calculation_interpretation_database/
 
 We intended to develop this program for the following purposes:
 
