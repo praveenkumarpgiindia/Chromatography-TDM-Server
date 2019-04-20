@@ -1,35 +1,6 @@
-"Shyam's Chromatography & TDM Server - Estimation Compilation Evaluation Reutlisation Epitransformation Interpretation (CTS-ECEREI)"
-#     The program written on R shiny language is intended for Therapeutic drug monitoring centers worldwide.
 
-#     We intended to develop this program for the following purposes:
 
-#     The ease of calculating the unknown concentration of drug in the sample evaluated based on the concentration and spectral value of
-#     the standards (Obtained through HPLC,LC-MS/MS or any similar assay methods) instantaneously.
-#     Reutlisation of the data for standard concentrations, for multiple samples.
-#     Creation of database containing the details of the samples evaluated with their results.
-#     Maintenance of easily accessible database within the laboratory along with functionality like downloading the database in csv format.
-#     Evaluation of the database for finding out patients in the interested range of concentration in a instantaneous manner. 
-#     In addition,the the database can be accessed for conducting prospective/retrospective studies
-#     Interactive analysis of the database to visualise out of range results within seconds. For identifying the samples which fall out 
-#     of range,the date of entry of the results into the database or sample number of the patient will be taken as identifiers by this program.
-#     Interpretation of results hence obtained on basis of various parameters like the nature of the drug, patient criteria including 
-#     age and any significant clinical conditions, drug interaction.
-#     Calculation of adjusted concentrations of drug in special conditions as suggested by published literature. An e.g. is, Correction 
-#     of phenytoin concentration according to blood albumin concentration of the patient.
- #    Copyright (C) 2017  Praveen Kumar M
 
- #   This program is free software: you can redistribute it and/or modify
- #  it under the terms of the GNU General Public License as published by
- #  the Free Software Foundation, either version 3 of the License, or
- #  (at your option) any later version.
-
- #   This program is distributed in the hope that it will be useful,
- #  but WITHOUT ANY WARRANTY; without even the implied warranty of
- #  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- #  GNU General Public License for more details.
-
- #  You should have received a copy of the GNU General Public License
- #  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
 library(shiny)
@@ -108,18 +79,16 @@ fields210s <-
   )
 
 
-downloadstandard <-
-  read.csv("standard2017-08-062017-08-06 17-45-50.csv")
-downloadtemplate <- read.csv("template file.csv")
-downloadtemplate2 <-
-  read.csv("chromatography2017-08-062017-08-06 19-36-06.csv")
-downloadtemplate3 <-
-  read.csv("chromatography2017-08-062017-08-06 19-36-06.csv")
-downloadtemplate4 <- read.csv("larger database.csv")
+downloadstandard<-read.csv("standard2017-08-062017-08-06 17-45-50.csv")
+downloadtemplate<-read.csv("template file.csv")
+downloadtemplate2<-read.csv("chromatography2017-08-062017-08-06 19-36-06.csv")
+downloadtemplate3<-read.csv("chromatography2017-08-062017-08-06 19-36-06.csv")
+downloadtemplate4<-read.csv("larger database.csv")
 
 theme_custom <- theme_set(theme_bw())
 
 shinyServer(function(input, output, session) {
+
   saveData <- function(data) {
     data <- as.data.frame(t(data))
     if (exists("response")) {
@@ -143,7 +112,7 @@ shinyServer(function(input, output, session) {
     data
   })
   
-  
+ 
   observeEvent(input$submit, {
     saveData(formData())
   })
@@ -196,7 +165,7 @@ shinyServer(function(input, output, session) {
     }
   )
   
-  
+ 
   
   formData3s <- reactive({
     data13s <- sapply(fields13s, function(x)
@@ -214,7 +183,7 @@ shinyServer(function(input, output, session) {
     },
     
     content = function(file) {
-      write.csv(downloadstandard, file, row.names = FALSE)
+      write.csv(downloadstandard, file,row.names = FALSE)
     }
   )
   
@@ -224,7 +193,7 @@ shinyServer(function(input, output, session) {
     },
     
     content = function(file) {
-      write.csv(downloadtemplate, file, row.names = FALSE)
+      write.csv(downloadtemplate, file,row.names = FALSE)
     }
   )
   
@@ -234,7 +203,7 @@ shinyServer(function(input, output, session) {
     },
     
     content = function(file) {
-      write.csv(downloadtemplate2, file, row.names = FALSE)
+      write.csv(downloadtemplate2, file,row.names = FALSE)
     }
   )
   
@@ -244,7 +213,7 @@ shinyServer(function(input, output, session) {
     },
     
     content = function(file) {
-      write.csv(downloadtemplate2, file, row.names = FALSE)
+      write.csv(downloadtemplate2, file,row.names = FALSE)
     }
   )
   
@@ -254,7 +223,7 @@ shinyServer(function(input, output, session) {
     },
     
     content = function(file) {
-      write.csv(downloadtemplate4, file, row.names = FALSE)
+      write.csv(downloadtemplate4, file,row.names = FALSE)
     }
   )
   
@@ -418,8 +387,10 @@ shinyServer(function(input, output, session) {
   
   output$final3s <-
     renderPrint({
+      
+      
       C13s <-
-        input$C13s
+        input$C13s 
       C23s <- input$C23s
       C33s <- input$C33s
       V13s <- input$V13s
@@ -435,20 +406,21 @@ shinyServer(function(input, output, session) {
       c3s <-
         lm(a3s ~ b3s)
       coeffs3s = coefficients(c3s)
-      
+     
       O3s <-
-        coeffs3s[1] + coeffs3s[2] * U3s
+        coeffs3s[1] + coeffs3s[2] * U3s 
       
       print(O3s)
       
       
       
-    })
+    })	
   
   output$final23s <-
     renderTable({
+     
       C13s <-
-        input$C13s
+        input$C13s 
       C23s <- input$C23s
       C33s <- input$C33s
       V13s <- input$V13s
@@ -468,6 +440,7 @@ shinyServer(function(input, output, session) {
   
   output$final33s <-
     renderPlot({
+      
       C13s <- input$C13s
       C23s <- input$C23s
       C33s <- input$C33s
@@ -492,13 +465,14 @@ shinyServer(function(input, output, session) {
         plotobj3s + scale_x_continuous("Concentration of the standard (mg/ml) \n")
       plotobj3s <-
         plotobj3s + scale_y_continuous("\n Spectral value ")
-      print(plotobj3s)
+      print(plotobj3s) 
     })
   
   output$final4s <-
     renderPrint({
+      
       C14s <-
-        input$C14s
+        input$C14s 
       C24s <- input$C24s
       C34s <- input$C34s
       C44s <- input$C44s
@@ -516,19 +490,21 @@ shinyServer(function(input, output, session) {
       c4s <-
         lm(a4s ~ b4s)
       coeffs4s = coefficients(c4s)
-      
+     
       O4s <-
-        coeffs4s[1] + coeffs4s[2] * U4s
+        coeffs4s[1] + coeffs4s[2] * U4s 
       
       print(O4s)
       
-      
-    })
+     
+    })	
   
   output$final24s <-
     renderTable({
+     
+      
       C14s <-
-        input$C14s
+        input$C14s 
       C24s <- input$C24s
       C34s <- input$C34s
       C44s <- input$C44s
@@ -553,8 +529,9 @@ shinyServer(function(input, output, session) {
   
   output$final34s <-
     renderPlot({
+      
       C14s <-
-        input$C14s
+        input$C14s 
       C24s <- input$C24s
       C34s <- input$C34s
       C44s <- input$C44s
@@ -571,7 +548,7 @@ shinyServer(function(input, output, session) {
       c4s <- lm(a4s ~ b4s)
       coeffs4s = coefficients(c4s)
       
-      
+    
       conc.data4s <-
         data.frame(a4s = a4s, b4s = b4s)
       plotobj4s <- ggplot(data = conc.data4s)
@@ -581,14 +558,16 @@ shinyServer(function(input, output, session) {
         plotobj4s + scale_x_continuous("Concentration of the standard (mg/ml) \n")
       plotobj4s <-
         plotobj4s + scale_y_continuous("\n Spectral value ")
-      print(plotobj4s)
+      print(plotobj4s) 
     })
   
-  
+ 
   output$final5s <-
     renderPrint({
+      
+      
       C15s <-
-        input$C15s
+        input$C15s 
       C25s <- input$C25s
       C35s <- input$C35s
       C45s <- input$C45s
@@ -610,17 +589,19 @@ shinyServer(function(input, output, session) {
       coeffs5s = coefficients(c5s)
       
       O5s <-
-        coeffs5s[1] + coeffs5s[2] * U5s
+        coeffs5s[1] + coeffs5s[2] * U5s 
       
       print(O5s)
       
       
-    })
+    })	
   
   output$final25s <-
     renderTable({
+      
+      
       C15s <-
-        input$C15s
+        input$C15s 
       C25s <- input$C25s
       C35s <- input$C35s
       C45s <- input$C45s
@@ -649,8 +630,10 @@ shinyServer(function(input, output, session) {
   
   output$final35s <-
     renderPlot({
+      
+      
       C15s <-
-        input$C15s
+        input$C15s 
       C25s <- input$C25s
       C35s <- input$C35s
       C45s <- input$C45s
@@ -681,14 +664,15 @@ shinyServer(function(input, output, session) {
         plotobj5s + scale_x_continuous("Concentration of the standard (mg/ml) \n")
       plotobj5s <-
         plotobj5s + scale_y_continuous("\n Spectral value ")
-      print(plotobj5s)
+      print(plotobj5s) 
       
     })
   
   output$final6s <-
     renderPrint({
+     
       C16s <-
-        input$C16s
+        input$C16s 
       C26s <- input$C26s
       C36s <- input$C36s
       C46s <- input$C46s
@@ -711,18 +695,19 @@ shinyServer(function(input, output, session) {
         lm(a6s ~ b6s)
       coeffs6s = coefficients(c6s)
       O6s <-
-        coeffs6s[1] + coeffs6s[2] * U6s
+        coeffs6s[1] + coeffs6s[2] * U6s 
       
       print(O6s)
       
       
       
-    })
+    })	
   
   output$final26s <-
     renderTable({
+
       C16s <-
-        input$C16s
+        input$C16s 
       C26s <- input$C26s
       C36s <- input$C36s
       C46s <- input$C46s
@@ -753,8 +738,9 @@ shinyServer(function(input, output, session) {
   
   output$final36s <-
     renderPlot({
+
       C16s <-
-        input$C16s
+        input$C16s 
       C26s <- input$C26s
       C36s <- input$C36s
       C46s <- input$C46s
@@ -788,14 +774,15 @@ shinyServer(function(input, output, session) {
         plotobj6s + scale_x_continuous("Concentration of the standard (mg/ml) \n")
       plotobj6s <-
         plotobj6s + scale_y_continuous("\n Spectral value ")
-      print(plotobj6s)
+      print(plotobj6s) 
       
     })
-  
+
   output$final7s <-
     renderPrint({
+     
       C17s <-
-        input$C17s
+        input$C17s 
       C27s <- input$C27s
       C37s <- input$C37s
       C47s <- input$C47s
@@ -820,18 +807,19 @@ shinyServer(function(input, output, session) {
         lm(a7s ~ b7s)
       coeffs7s = coefficients(c7s)
       O7s <-
-        coeffs7s[1] + coeffs7s[2] * U7s
+        coeffs7s[1] + coeffs7s[2] * U7s 
       
       print(O7s)
       
       
       
-    })
+    })	
   
   output$final27s <-
     renderTable({
+
       C17s <-
-        input$C17s
+        input$C17s 
       C27s <- input$C27s
       C37s <- input$C37s
       C47s <- input$C47s
@@ -863,8 +851,9 @@ shinyServer(function(input, output, session) {
   
   output$final37s <-
     renderPlot({
+
       C17s <-
-        input$C17s
+        input$C17s 
       C27s <- input$C27s
       C37s <- input$C37s
       C47s <- input$C47s
@@ -889,7 +878,7 @@ shinyServer(function(input, output, session) {
       c7s <- lm(a7s ~ b7s)
       coeffs7s = coefficients(c7s)
       
-      
+     
       conc.data7s <-
         data.frame(a7s = a7s, b7s = b7s)
       
@@ -900,15 +889,16 @@ shinyServer(function(input, output, session) {
         plotobj7s + scale_x_continuous("Concentration of the standard (mg/ml) \n")
       plotobj7s <-
         plotobj7s + scale_y_continuous("\n Spectral value ")
-      print(plotobj7s)
+      print(plotobj7s) 
       
     })
   
-  
+
   output$final8s <-
     renderPrint({
+     
       C18s <-
-        input$C18s
+        input$C18s 
       C28s <- input$C28s
       C38s <- input$C38s
       C48s <- input$C48s
@@ -934,15 +924,16 @@ shinyServer(function(input, output, session) {
         lm(a8s ~ b8s)
       coeffs8s = coefficients(c8s)
       O8s <-
-        coeffs8s[1] + coeffs8s[2] * U8s
+        coeffs8s[1] + coeffs8s[2] * U8s 
       
       print(O8s)
       
-      
-    })
+     
+    })	
   
   output$final28s <-
     renderTable({
+
       C18s <-
         input$C18s
       C28s <- input$C28s
@@ -979,8 +970,9 @@ shinyServer(function(input, output, session) {
   
   output$final38s <-
     renderPlot({
+
       C18s <-
-        input$C18s
+        input$C18s 
       C28s <- input$C28s
       C38s <- input$C38s
       C48s <- input$C48s
@@ -1007,7 +999,7 @@ shinyServer(function(input, output, session) {
       c8s <- lm(a8s ~ b8s)
       coeffs8s = coefficients(c8s)
       
-      
+     
       conc.data8s <-
         data.frame(a8s = a8s, b8s = b8s)
       
@@ -1018,15 +1010,16 @@ shinyServer(function(input, output, session) {
         plotobj8s + scale_x_continuous("Concentration of the standard (mg/ml) \n")
       plotobj8s <-
         plotobj8s + scale_y_continuous("\n Spectral value ")
-      print(plotobj8s)
+      print(plotobj8s) 
       
     })
   
   
   output$final9s <-
     renderPrint({
+     
       C19s <-
-        input$C19s
+        input$C19s 
       C29s <- input$C29s
       C39s <- input$C39s
       C49s <- input$C49s
@@ -1054,9 +1047,9 @@ shinyServer(function(input, output, session) {
       c9s <-
         lm(a9s ~ b9s)
       coeffs9s = coefficients(c9s)
-      
+    
       O9s <-
-        coeffs9s[1] + coeffs9s[2] * U9s
+        coeffs9s[1] + coeffs9s[2] * U9s 
       
       
       print(O9s)
@@ -1066,8 +1059,10 @@ shinyServer(function(input, output, session) {
   
   output$final29s <-
     renderTable({
+      
+      
       C19s <-
-        input$C19s
+        input$C19s 
       C29s <- input$C29s
       C39s <- input$C39s
       C49s <- input$C49s
@@ -1104,8 +1099,10 @@ shinyServer(function(input, output, session) {
   
   output$final39s <-
     renderPlot({
+      
+      
       C19s <-
-        input$C19s
+        input$C19s 
       C29s <- input$C29s
       C39s <- input$C39s
       C49s <- input$C49s
@@ -1145,15 +1142,16 @@ shinyServer(function(input, output, session) {
         plotobj9s + scale_x_continuous("Concentration of the standard (mg/ml) \n")
       plotobj9s <-
         plotobj9s + scale_y_continuous("\n Spectral value ")
-      print(plotobj9s)
+      print(plotobj9s) 
       
     })
   
-  
+
   output$final10s <-
     renderPrint({
+
       C110s <-
-        input$C110s
+        input$C110s 
       C210s <- input$C210s
       C310s <- input$C310s
       C410s <- input$C410s
@@ -1201,9 +1199,9 @@ shinyServer(function(input, output, session) {
       c10s <-
         lm(a10s ~ b10s)
       coeffs10s = coefficients(c10s)
-      
+  
       O10s <-
-        coeffs10s[1] + coeffs10s[2] * U10s
+        coeffs10s[1] + coeffs10s[2] * U10s 
       
       print(O10s)
       
@@ -1213,8 +1211,10 @@ shinyServer(function(input, output, session) {
   
   output$final210s <-
     renderTable({
+      
+      
       C110s <-
-        input$C110s
+        input$C110s 
       C210s <- input$C210s
       C310s <- input$C310s
       C410s <- input$C410s
@@ -1272,7 +1272,7 @@ shinyServer(function(input, output, session) {
   output$final310s <-
     renderPlot({
       C110s <-
-        input$C110s
+        input$C110s 
       C210s <- input$C210s
       C310s <- input$C310s
       C410s <- input$C410s
@@ -1331,7 +1331,7 @@ shinyServer(function(input, output, session) {
         plotobj10s + scale_x_continuous("Concentration of the standard (mg/ml) \n")
       plotobj10s <-
         plotobj10s + scale_y_continuous("\n Spectral value ")
-      print(plotobj10s)
+      print(plotobj10s) 
       
     })
   
@@ -1360,45 +1360,34 @@ shinyServer(function(input, output, session) {
   
   
   
-  output$visualdrug <- renderPlot({
-    if (input$drugvis == "allvis") {
-      abcvis <- data()[, 7]
-      cbdvis <- table(abcvis)
-      barplot(
-        cbdvis,
-        width = 2,
-        xlim = c(0, 10),
-        col =  rainbow(3),
-        xlab = "Different drugs assayed in the laboratory",
-        ylab = "The frequency of drugs assayed",
-        main = "The frequency of different drugs assayed in laboratory"
-      )
-      
-    } else if (input$drugvis == "phenvis") {
+  output$visualdrug<-renderPlot({
+    if(input$drugvis == "allvis"){
+      abcvis<-data()[,7]
+      cbdvis<-table(abcvis)
+      barplot(cbdvis,width = 2,xlim = c(0,10), col =  rainbow(3),xlab = "Different drugs assayed in the laboratory",
+              ylab = "The frequency of drugs assayed",
+              main = "The frequency of different drugs assayed in laboratory")
+  
+    }else if(input$drugvis == "phenvis"){
       print ("Under Construction")
-    } else if (input$drugvis == "carbmvis") {
+    }else if(input$drugvis == "carbmvis"){
       print("Under Construction")
     } else {
       print("Under Construction")
     }
-    
+      
   })
   
-  output$visualdrug2 <- renderPlot({
-    if (input$drugvis == "allvis") {
-      efgvis <- tapply(data()[, 8], data()[, 7], mean)
-      barplot(
-        efgvis,
-        width = 2,
-        xlim = c(0, 10),
-        col =  rainbow(3),
-        xlab = "Different drugs assayed in the laboratory",
-        ylab = "Mean of the concentration in the measured unit",
-        main = "The mean of concentration of different drugs assayed in the laboratory"
-      )
-    } else if (input$drugvis == "phenvis") {
+  output$visualdrug2<-renderPlot({
+    if(input$drugvis == "allvis"){
+  
+      efgvis<-tapply(data()[,8],data()[,7],mean)
+      barplot(efgvis,width = 2,xlim = c(0,10), col =  rainbow(3),xlab = "Different drugs assayed in the laboratory",
+              ylab = "Mean of the concentration in the measured unit",
+              main = "The mean of concentration of different drugs assayed in the laboratory")
+    }else if(input$drugvis == "phenvis"){
       print ("Under Construction")
-    } else if (input$drugvis == "carbmvis") {
+    }else if(input$drugvis == "carbmvis"){
       print("Under Construction")
     } else {
       print("Under Construction")
@@ -1410,125 +1399,78 @@ shinyServer(function(input, output, session) {
   
   
   
-  output$visualfind2 <- renderPlot({
-    if (input$drugvisat == "allvisat")
-      barplot(
-        data()[, 8],
-        col = "black",
-        main = "Concentration of drug in the different samples assayed in laboratory",
-        ylab = "Values of drug conc. in measured units" ,
-        xlab = "Sequential order of time"
-      )
+  output$visualfind2<-renderPlot({
+    if(input$drugvisat == "allvisat")
+    barplot(data()[,8],col = "black", main = "Concentration of drug in the different samples assayed in laboratory", 
+            ylab = "Values of drug conc. in measured units" ,
+            xlab = "Sequential order of time")
     
-    else if (input$drugvisat == "phenvisat") {
-      abcvisat <- data()[data()[, 7] == "phenytoin",]
-      abcvisat <- abcvisat[, 8]
-      barplot(
-        abcvisat,
-        col = "blue",
-        main = "Concentration of phenytoin in the different samples assayed in laboratory",
-        ylab = "Values of phenytoin conc. in measured units" ,
-        xlab = "Sequential order of time"
-      )
+    else if( input$drugvisat == "phenvisat"){
+      abcvisat<-data()[data()[,7]== "phenytoin",]
+      abcvisat<-abcvisat[,8]
+      barplot(abcvisat,col = "blue", main = "Concentration of phenytoin in the different samples assayed in laboratory", 
+              ylab = "Values of phenytoin conc. in measured units" ,
+              xlab = "Sequential order of time")
       
-    } else if (input$drugvisat == "carbmvisat") {
-      abcvisat <- data()[data()[, 7] == "carbamazepine",]
-      abcvisat <- abcvisat[, 8]
-      barplot(
-        abcvisat,
-        col = "red",
-        main = "Concentration of carbamazepine in the different samples assayed in laboratory",
-        ylab = "Values of carbamazepine conc. in measured units" ,
-        xlab = "Sequential order of time"
-      )
-      
-    } else{
-      abcvisat <- data()[data()[, 7] == "phenobarbitone",]
-      abcvisat <- abcvisat[, 8]
-      barplot(
-        abcvisat,
-        col = "green",
-        main = "Concentration of phenobarbitone in the different samples assayed in laboratory",
-        ylab = "Values of phenobarbitone conc. in measured units" ,
-        xlab = "Sequential order of time"
-      )
+    }else if( input$drugvisat == "carbmvisat"){
+      abcvisat<-data()[data()[,7]== "carbamazepine",]
+      abcvisat<-abcvisat[,8]
+      barplot(abcvisat,col = "red", main = "Concentration of carbamazepine in the different samples assayed in laboratory", 
+              ylab = "Values of carbamazepine conc. in measured units" ,
+              xlab = "Sequential order of time")
+    
+    }else{
+      abcvisat<-data()[data()[,7]== "phenobarbitone",]
+      abcvisat<-abcvisat[,8]
+      barplot(abcvisat,col = "green", main = "Concentration of phenobarbitone in the different samples assayed in laboratory", 
+              ylab = "Values of phenobarbitone conc. in measured units" ,
+              xlab = "Sequential order of time")
     }
     
     
   })
   
-  output$visualfind4 <- renderPlotly({
-    plot_ly(
-      data(),
-      x = data()[, 2],
-      y = data()[, 8],
-      color = data()[, 7],
-      size = data()[, 8]
-    )
+  output$visualfind4<-renderPlotly({
+    plot_ly(data(),x= data()[,2], y= data()[,8], color = data()[,7], size = data()[,8])
     
   })
   
-  output$visualfind5 <- renderPlotly({
-    plot_ly(
-      data(),
-      x = data()[, 6],
-      y = data()[, 8],
-      color = data()[, 7],
-      size = data()[, 8]
-    )
-    
+  output$visualfind5<-renderPlotly({
+    plot_ly(data(),x= data()[,6], y= data()[,8], color = data()[,7], size = data()[,8])
+
   })
-  
+
   
   output$event <- renderPrint({
     d <- event_data("plotly_hover")
-    if (is.null(d))
-      "Hover on a point!"
-    else
-      d
+    if (is.null(d)) "Hover on a point!" else d
   })
   
   output$event2 <- renderPrint({
     d <- event_data("plotly_hover")
-    if (is.null(d))
-      "Hover on a point!"
-    else
-      d
+    if (is.null(d)) "Hover on a point!" else d
   })
   
   
-  output$attendrug <- renderPrint({
-    if (input$drugsel == "allsel") {
-      newdata <-
-        data()[(data()[, 8] > input$startconc) &
-                 (data()[, 8] < input$endconc) ,]
+  output$attendrug<-renderPrint({
+    if(input$drugsel == "allsel"){
+      newdata<-data()[(data()[,8]>input$startconc) & (data()[,8]<input$endconc) ,]
       print(newdata)
-    } else if (input$drugsel == "phensel") {
-      newdata <-
-        data()[which(data()[, 7] == "phenytoin" &
-                       (data()[, 8] > input$startconc) &
-                       (data()[, 8] < input$endconc)),]
+    }else if(input$drugsel == "phensel"){
+      newdata<-data()[which(data()[,7] == "phenytoin" &  (data()[,8]>input$startconc) & (data()[,8]<input$endconc) ),]
       print (newdata)
-    } else if (input$drugsel == "carbmsel") {
-      newdata <-
-        data()[which(data()[, 7] == "carbamazepine" &
-                       (data()[, 8] > input$startconc) &
-                       (data()[, 8] < input$endconc)),]
+    }else if(input$drugsel == "carbmsel"){
+      newdata<-data()[which(data()[,7] == "carbamazepine" &  (data()[,8]>input$startconc) & (data()[,8]<input$endconc) ),]
       print (newdata)
     } else {
-      newdata <-
-        data()[which(
-          data()[, 7] == "phenobarbitone" &
-            (data()[, 8] > input$startconc) &
-            (data()[, 8] < input$endconc)
-        ),]
+      newdata<-data()[which(data()[,7] == "phenobarbitone" &  (data()[,8]>input$startconc) & (data()[,8]<input$endconc) ),]
       print(newdata)
     }
     
   })
   
-  output$meandrug <- renderPrint({
-    abcmean <- data()
+  output$meandrug<-renderPrint({
+    abcmean<-data()
     summary(abcmean)
   })
   
@@ -1536,82 +1478,21 @@ shinyServer(function(input, output, session) {
     if (is.null(data()))
       h3("R Web Server based Data Handling")
     else
-      tabsetPanel(
-        tabPanel
-        ("Data", fluidPage(fluidRow(
-          DT::dataTableOutput("table")
-        ))),
-        tabPanel(
-          "Which patients need attention",
-          selectInput(
-            "drugsel",
-            "Select the drug of interest",
-            c(
-              "All" = "allsel" ,
-              "phenytoin" = "phensel",
-              "carbamazepine" = "carbmsel",
-              "phenobarbitone" = "phenosel"
-            )
-          ),
-          sliderInput(
-            "startconc",
-            "Select the lower end of the desired concentration range",
-            min = 0,
-            max = 100,
-            step = 0.1,
-            value = 25,
-            width = 1000
-          ),
-          sliderInput(
-            "endconc",
-            "Select the upper end of the desired concentration range",
-            min = 0,
-            max = 100,
-            step = 0.1,
-            value = 25,
-            width = 1000
-          ),
-          verbatimTextOutput("attendrug")
-        ),
-        tabPanel(
-          "Visual inspection - static",
-          selectInput(
-            "drugvisat",
-            "Select the drug of interest",
-            c(
-              "All" = "allvisat" ,
-              "phenytoin" = "phenvisat",
-              "carbamazepine" = "carbmvisat",
-              "phenobarbitone" = "phenovisat"
-            )
-          ),
-          plotOutput("visualfind2")
-        ),
-        tabPanel(
-          "Date-wise visual inspection - dynamic",
-          fluidPage(
-            plotlyOutput("visualfind4"),
-            br(),
-            hr(),
-            verbatimTextOutput("event")
-          )
-        ),
-        tabPanel(
-          "Id-wise visual inspection - dynamic",
-          fluidPage(
-            plotlyOutput("visualfind5"),
-            br(),
-            hr(),
-            verbatimTextOutput("event2")
-          )
-        ),
-        tabPanel(
-          "Visualisation",
-          selectInput("drugvis", "Select the drug of interest", c("All" = "allvis")),
-          plotOutput("visualdrug"), plotOutput("visualdrug2")
-        ),
-        tabPanel("Summary", verbatimTextOutput("meandrug"), width = 1000)
-      )
+      tabsetPanel(tabPanel
+                  ("Data", fluidPage(
+                  fluidRow(
+                      DT::dataTableOutput("table")
+                    ))),
+    tabPanel("Which patients need attention",selectInput("drugsel","Select the drug of interest",c("All" = "allsel" , "phenytoin" = "phensel","carbamazepine" = "carbmsel","phenobarbitone" = "phenosel")),
+             sliderInput("startconc","Select the lower end of the desired concentration range",min = 0,max = 100, step = 0.1,value = 25,width = 1000),
+             sliderInput("endconc","Select the upper end of the desired concentration range",min = 0,max = 100, step = 0.1,value = 25,width = 1000),
+             verbatimTextOutput("attendrug")),tabPanel("Visual inspection - static",selectInput("drugvisat","Select the drug of interest",c("All" = "allvisat" , "phenytoin" = "phenvisat","carbamazepine" = "carbmvisat","phenobarbitone" = "phenovisat")),
+                                                       plotOutput("visualfind2")),
+    tabPanel("Date-wise visual inspection - dynamic",fluidPage(plotlyOutput("visualfind4"),br(),hr(),verbatimTextOutput("event")
+                                              )),
+    tabPanel("Id-wise visual inspection - dynamic", fluidPage(plotlyOutput("visualfind5"), br(),hr(), verbatimTextOutput("event2"))),
+    tabPanel("Visualisation", selectInput("drugvis","Select the drug of interest",c("All" = "allvis")),
+                                               plotOutput("visualdrug"),plotOutput("visualdrug2")),tabPanel("Summary",verbatimTextOutput("meandrug"),width=1000))
     
   })
   
@@ -1662,6 +1543,7 @@ shinyServer(function(input, output, session) {
   
   output$regresspat <-
     renderPrint({
+
       datastd <- reactive({
         file2 <- input$file2
         if (is.null(file2)) {
@@ -1685,7 +1567,7 @@ shinyServer(function(input, output, session) {
       regresseq <- lm(data13s ~ data23s)
       coeffsregress = coefficients(regresseq)
       Oregress <-
-        coeffsregress[1] + coeffsregress[2] * Uregress2
+        coeffsregress[1] + coeffsregress[2] * Uregress2 
       print(Oregress)
       
       
@@ -1725,7 +1607,7 @@ shinyServer(function(input, output, session) {
   
   output$regressplot <-
     renderPlot({
-      datastd <- reactive({
+    datastd <- reactive({
         file2 <- input$file2
         if (is.null(file2)) {
           return()
@@ -1746,7 +1628,7 @@ shinyServer(function(input, output, session) {
       summary(dataglobal[, 2])
       data13sp <- dataglobal[, 2]
       data23sp <- dataglobal[, 3]
-      
+    
       
       conc.dataregressp <-
         data.frame(data13sp = data13sp, data23sp = data23sp)
@@ -1760,7 +1642,7 @@ shinyServer(function(input, output, session) {
         plotobjregressp + scale_x_continuous("Concentration of the standard (mg/ml) \n")
       plotobjregressp <-
         plotobjregressp + scale_y_continuous("\n Spectral value ")
-      print(plotobjregressp)
+      print(plotobjregressp) 
       
     })
   
@@ -1801,7 +1683,7 @@ shinyServer(function(input, output, session) {
           h4(
             "The calculated concentration of the drug in patient biological sample is"
           ),
-          
+
           h4(textOutput("regresspat")),
           hr(),
           
@@ -1811,7 +1693,7 @@ shinyServer(function(input, output, session) {
           
           
           h5("The statistics are tabulated here under"),
-          
+
           br(),
           
           h4(tableOutput("regresstab")),
@@ -1841,9 +1723,9 @@ shinyServer(function(input, output, session) {
   
   
   output$albumin <- renderUI({
+
     if (input$crcl == "YES")
-      tabsetPanel(
-        "Albumin correction in phenytoin concentration",
+      tabPanel("Albumin correction in phenytoin concentration",
         tabPanel(
           "Adjustment = 0.2",
           h4(
@@ -1881,8 +1763,7 @@ shinyServer(function(input, output, session) {
         )
       )
     else
-      tabsetPanel(
-        "Albumin correction in phenytoin concentration",
+      tabPanel("Albumin correction in phenytoin concentration",
         tabPanel(
           "Adjustment =0.1",
           h4(
@@ -1958,43 +1839,46 @@ shinyServer(function(input, output, session) {
     
   })
   
-  output$resultinter2 <- renderPrint({
-    if (input$carbmslideinter < 4 & input$age2 == "adults2") {
-      print("Concentration of carbamazepine is lower than normal in the sample")
-    } else if (((input$carbmslideinter >= 4) &
-                (input$carbmslideinter <= 12)) &&
-               input$age2 == "adults2") {
-      print("Concentration of carbamazepine is in the normal range in the sample")
-    } else if (((input$carbmslideinter > 12) &
-                (input$carbmslideinter <= 30)) &&
-               input$age2 == "adults2") {
-      print("Concentration of carbamazepine is in the higher range in the sample")
-    } else if (input$carbmslideinter > 30 &
-               input$age2 == "adults2") {
-      print(
-        "Highly toxic concentration of carbamazepine seen in the sample. Please correlate clinically. Stop administering carbamazepine."
-      )
-    } else if (input$carbmslideinter < 4 & input$age2 == "neon2") {
-      print("Concentration is carbamazepine is lower than normal in the sample")
-    } else if (((input$carbmslideinter >= 4) &
-                (input$carbmslideinter <= 12)) &&
-               input$age2 == "neon2") {
-      print("Concentration of carbamazepine is in the normal range in the sample")
-    } else if (((input$carbmslideinter > 12) &
-                (input$carbmslideinter <= 30)) &&
-               input$age2 == "neon2") {
-      print("Concentration of carbamazepine is in the higher range in the sample")
-    } else if (input$carbmslideinter > 30 & input$age2 == "neon2") {
-      print(
-        "Highly toxic concentration of carbamazepine seen in the sample. Please correlate clinically. Stop administering carbamazepine."
-      )
-    } else {
-      print("Sorry. The server could not give you interpretation")
-    }
+  output$resultinter2<-renderPrint({
     
+   if (input$carbmslideinter < 4 & input$age2 == "adults2") {
+    print("Concentration of carbamazepine is lower than normal in the sample")
+  } else if (((input$carbmslideinter >= 4) &
+              (input$carbmslideinter <= 12)) &&
+             input$age2 == "adults2") {
+    print("Concentration of carbamazepine is in the normal range in the sample")
+  } else if (((input$carbmslideinter > 12) &
+              (input$carbmslideinter <= 30)) &&
+             input$age2 == "adults2") {
+    print("Concentration of carbamazepine is in the higher range in the sample")
+  } else if (input$carbmslideinter > 30 &
+             input$age2 == "adults2") {
+    print(
+      "Highly toxic concentration of carbamazepine seen in the sample. Please correlate clinically. Stop administering carbamazepine."
+    )
+  } else if (input$carbmslideinter < 4 & input$age2 == "neon2") {
+    print("Concentration is carbamazepine is lower than normal in the sample")
+  } else if (((input$carbmslideinter >= 4) &
+              (input$carbmslideinter <= 12)) &&
+             input$age2 == "neon2") {
+    print("Concentration of carbamazepine is in the normal range in the sample")
+  } else if (((input$carbmslideinter > 12) &
+              (input$carbmslideinter <= 30)) &&
+             input$age2 == "neon2") {
+    print("Concentration of carbamazepine is in the higher range in the sample")
+  } else if (input$carbmslideinter > 30 & input$age2 == "neon2") {
+    print(
+      "Highly toxic concentration of carbamazepine seen in the sample. Please correlate clinically. Stop administering carbamazepine."
+    )
+  } else {
+    print("Sorry. The server could not give you interpretation")
+  }
+   
   })
   
-  output$resultinter3 <- renderPrint({
+  output$resultinter3<-renderPrint({
+    
+    
     if (input$phenoslideinter < 15 & input$age3 == "adults3") {
       print("Concentration of phenobarbitone is lower than normal in the sample")
     } else if (((input$phenoslideinter >= 15) &
@@ -2031,132 +1915,79 @@ shinyServer(function(input, output, session) {
     
     
   })
+
   
-  
-  output$uploaded3 <- renderUI({
+  output$uploaded3<- renderUI({
     if (input$druginterpret == "pheninter")
-    {
-      tabsetPanel(
+      {tabsetPanel(
         tabPanel(
           h4("Phenytoin"),
           hr(),
-          sliderInput(
-            "phenslideinter",
-            "Please select the concentration of phenytoin (in microg/ml)",
-            min = 0,
-            max = 100,
-            value = 15,
-            step = 0.1,
-            width = 1000
-          ),
-          helpText(
-            "Please note that the phenytoin level which you are prompted to enter above is total pheytoin concentration"
-          ),
-          selectInput(
-            "age1",
-            "Please select the age group of patient",
-            c("Children and Adults" = "adults1", "Neonates" = "neon1")
-          ),
+          sliderInput("phenslideinter","Please select the concentration of phenytoin (in microg/ml)",
+          min = 0, max = 100, value = 15,step = 0.1,width = 1000),
+                helpText("Please note that the phenytoin level which you are prompted to enter above is total pheytoin concentration"),
+          selectInput("age1","Please select the age group of patient",c("Children and Adults"="adults1","Neonates"="neon1") ),
           hr(),
-          h4(
-            "The interpretation for the level of phenytoin in the plasma sample of patient is"
-          ),
-          
-          h3(textOutput("resultinter1"))
-        ),
+          h4("The interpretation for the level of phenytoin in the plasma sample of patient is"),
+       
+        h3(textOutput("resultinter1"))),
         hr(),
-        helpText(
-          "The interpretation given is only for reference and requires clinical conformation. The server(and the associated people) is not liable legally"
-        ),
+        helpText("The interpretation given is only for reference and requires clinical conformation. The server(and the associated people) is not liable legally"),
         hr()
-      )
-    }
+        )
+      }
     else if (input$druginterpret == "carbminter")
-    {
-      tabsetPanel(
+      {tabsetPanel(
         tabPanel(
           h4("Carbamazepine"),
           hr(),
-          sliderInput(
-            "carbmslideinter",
-            "Please select the concentration of carbamzepine (in mg/l)",
-            min = 0,
-            max = 70,
-            value = 15,
-            step = 0.1,
-            width = 1000
-          ),
+          sliderInput("carbmslideinter","Please select the concentration of carbamzepine (in mg/l)",
+                      min = 0, max = 70, value = 15,step = 0.1,width = 1000),
           hr(),
-          selectInput(
-            "age2",
-            "Please select the age group of patient",
-            c("Children and Adults" = "adults2", "Neonates" = "neon2")
-          ),
+          selectInput("age2","Please select the age group of patient",c("Children and Adults"="adults2","Neonates"="neon2") ),
           hr(),
-          h4(
-            "The interpretation for the level of carbamazepine in the plasma sample of patient is"
-          ),
+          h4("The interpretation for the level of carbamazepine in the plasma sample of patient is"),
           
-          h3(textOutput("resultinter2")),
-          hr(),
-          helpText(
-            "The interpretation given is only for reference and requires clinical conformation. The server(and the associated people) is not liable legally"
-          ),
-          hr()
+        h3(textOutput("resultinter2")),
+        hr(),
+        helpText("The interpretation given is only for reference and requires clinical conformation. The server(and the associated people) is not liable legally"),
+        hr()
         )
-      )
-    }
+      )}
     else
       tabsetPanel(
         tabPanel(
           h4("Phenobarbitone"),
           hr(),
-          sliderInput(
-            "phenoslideinter",
-            "Please select the concentration of phenobarbitone (in microg/ml)",
-            min = 0,
-            max = 100,
-            value = 15,
-            step = 0.1,
-            width = 1000
-          ),
+          sliderInput("phenoslideinter","Please select the concentration of phenobarbitone (in microg/ml)",
+                      min = 0, max = 100, value = 15,step = 0.1,width = 1000),
           hr(),
-          selectInput(
-            "age3",
-            "Please select the age group of patient",
-            c(
-              "Adults and children >5 yrs" = "adults3",
-              "Infants and children < 5 years" = "neon3"
-            )
-          ),
-          hr(),
-          h4(
-            "The interpretation for the level of phenobarbitone in the plasma sample of patient is"
-          ),
-          h3(textOutput("resultinter3")),
-          hr(),
-          helpText(
-            "The interpretation given is only for reference and requires clinical conformation. The server(and the associated people) is not liable legally"
-          ),
-          hr()
+          selectInput("age3","Please select the age group of patient",c("Adults and children >5 yrs"="adults3","Infants and children < 5 years"="neon3") ),
+        hr(),
+        h4("The interpretation for the level of phenobarbitone in the plasma sample of patient is"),
+        h3(textOutput("resultinter3")),
+        hr(),
+        helpText("The interpretation given is only for reference and requires clinical conformation. The server(and the associated people) is not liable legally"),
+        hr()
         )
-        
+
       )
-    
+
   })
   
   
-  output$uploaded4 <- renderUI({
-    if (input$fillable2 == "png")
-      img(src = 'pngfig.png')
+  output$uploaded4<-renderUI({
     
-    else if (input$fillable2 == "downloadable") {
-      tags$iframe(style = "height:700px; width:100%; scrolling=yes",
-                  src = "web.pdf")
+    if(input$fillable2 == "png")
+      img(src='pngfig.png')
       
-    } else if (input$fillable2 == "fillable") {
-      tags$iframe(style = "height:700px; width:100%; scrolling=yes",
-                  src = "fillable.pdf")
+    else if(input$fillable2 == "downloadable"){
+      tags$iframe(style="height:700px; width:100%; scrolling=yes", 
+                  src="web.pdf")
+    
+    }else if (input$fillable2 == "fillable"){
+      tags$iframe(style="height:700px; width:100%; scrolling=yes", 
+                  src="fillable.pdf")
     }
     else {
       htmlOutput("increase")
@@ -2165,15 +1996,13 @@ shinyServer(function(input, output, session) {
   })
   
   
-  getPage <- function() {
-    return((HTML(
-      readLines(
-        'https://drive.google.com/drive/folders/0BwvOvYK5wRDUcmk3SGppYm0yUUE?usp=sharing'
-      )
-    )))
+  getPage<-function(){
+    return((HTML(readLines('https://drive.google.com/drive/folders/0BwvOvYK5wRDUcmk3SGppYm0yUUE?usp=sharing'))))
   }
   
-  output$increase <- renderUI(getPage())
+  output$increase <-renderUI(
+    getPage()
+  )
   
-  
+
 })
